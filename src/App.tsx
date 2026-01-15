@@ -1,7 +1,13 @@
+import {Characters} from '@/modules';
+
+
 function App() {
+
   return (
-    <div className="bg-white p-10"></div>
-  )
+    <div className="p-3">
+      <Characters/>
+    </div>
+  );
 }
 
 export default App
