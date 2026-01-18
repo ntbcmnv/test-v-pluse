@@ -1,5 +1,10 @@
 import type {Location} from '@/modules'
 
+export interface Origin {
+  name: string;
+  url: string;
+}
+
 export interface Character {
   id: number;
   name: string;
@@ -7,6 +12,7 @@ export interface Character {
   species: string;
   type: string;
   gender: string;
+  origin: Origin;
   location: Location;
   image: string;
   episode: string[];
