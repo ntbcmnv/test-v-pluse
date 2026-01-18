@@ -1,37 +1,34 @@
-import {useGetEpisodesQuery} from '@/modules';
-import {useEffect} from 'react';
+import {useSearchParams} from 'react-router-dom';
+import {useGetEpisodesQuery, EpisodeCard} from '@/modules';
+import {Spinner} from '@/components/ui/spinner';
 import {toast} from 'sonner';
-import {Spinner} from '@/components/ui/spinner.tsx';
-import {EpisodeCard} from '@/modules/episodes/features';
+import {useEffect} from 'react';
 
 export const Episodes = () => {
-  const {data, isLoading, error} = useGetEpisodesQuery();
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get('page') ?? 1);
+  const search = searchParams.get('search') ?? '';
+
+  const {data, isLoading, error} = useGetEpisodesQuery({
+    page,
+    name: search || undefined,
+  });
 
   useEffect(() => {
     if (error) {
-      toast.error('Произошла ошибка при загрузке эпизодов');
+      toast.error('An error occurred, try again later.');
     }
   }, [error]);
 
   if (isLoading) {
-    return <div className="flex items-center justify-center">
-      <Spinner/>
-    </div>;
+    return <Spinner />;
   }
 
   return (
-    <div>
-      {
-        data ? data.results?.map(episode => (
-            <EpisodeCard
-              episode={episode}
-              key={episode.id}
-              className="p-3 mb-4"
-            />
-          )) :
-          <div className="flex justify-center">Эпизоды не найдены</div>
-      }
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {data?.results.map((episode) => (
+        <EpisodeCard key={episode.id} episode={episode} />
+      ))}
     </div>
-
   );
 };

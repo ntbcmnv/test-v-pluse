@@ -1,19 +1,24 @@
-import {apiSlice} from '@/utils/api.ts';
-import type {ApiResponse} from '@/types.ts';
+import {apiSlice} from '@/shared/api/api.ts';
+import type {ApiResponse} from '@/shared/types.ts';
 import type {Episode} from '../types.ts';
 
 export const episodesApi =
   apiSlice.injectEndpoints({
     endpoints: (builder) =>
       ({
-        getEpisodes:
-          builder.query<ApiResponse<Episode>, void>
-          ({
-            query:
-              () =>
-                ({url: '/episode', method: 'get'}),
-            providesTags: ['Episodes'],
+        getEpisodes: builder.query<
+          ApiResponse<Episode>,
+          { page?: number; name?: string }
+        >({
+          query: ({page = 1, name}) => ({
+            url: '/episode',
+            params: {
+              page,
+              name,
+            },
           }),
+          providesTags: ['Episodes'],
+        }),
 
         getEpisode:
           builder.query<Episode, number>
@@ -21,7 +26,7 @@ export const episodesApi =
             query:
               (id) =>
                 ({url: `/episode/${id}`, method: 'get'}),
-            providesTags: ['EpisodeCard'],
+            providesTags: ['Episode'],
           })
       }),
     overrideExisting: false,
