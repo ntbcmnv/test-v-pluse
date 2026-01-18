@@ -7,3 +7,5 @@ export interface ApiResponse<T> {
   };
   results: T[];
 }
+
+export type SearchType = 'characters' | 'episodes' | 'locations';
