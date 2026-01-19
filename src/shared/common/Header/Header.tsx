@@ -32,9 +32,22 @@ export const Header = () => {
 
       <div className="flex items-center gap-4">
         <nav className="flex gap-4">
-          <NavLink to="/characters" className="hover:text-green-500 transition-colors">Characters</NavLink>
-          <NavLink to="/episodes" className="hover:text-green-500 transition-colors">Episodes</NavLink>
-          <NavLink to="/locations" className="hover:text-green-500 transition-colors">Locations</NavLink>
+          <NavLink to="/characters" className={({isActive}) =>
+            `transition-colors hover:text-green-500 ${
+              isActive ? 'text-green-500' : ''
+            }`
+          }>Characters</NavLink>
+          <NavLink to="/episodes" className={({isActive}) =>
+            `transition-colors hover:text-green-500 ${
+              isActive ? 'text-green-500' : ''
+            }`
+          }>Episodes</NavLink>
+          <NavLink to="/locations"
+                   className={({isActive}) =>
+                     `transition-colors hover:text-green-500 ${
+                       isActive ? 'text-green-500' : ''
+                     }`
+                   }>Locations</NavLink>
         </nav>
 
       </div>
