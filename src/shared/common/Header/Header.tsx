@@ -23,6 +23,10 @@ export const Header = () => {
     }, {replace: true});
   }, [debouncedValue, setSearchParams]);
 
+  const navLinkClass = ({isActive}: { isActive: boolean }) =>
+    `transition-colors hover:text-green-500 font-bold ${
+      isActive ? 'text-green-500' : ''
+    }`;
 
   return (
     <header className="bg-black p-3 flex justify-between items-center gap-3 border-b-2 border-green-500">
@@ -32,24 +36,10 @@ export const Header = () => {
 
       <div className="flex items-center gap-4">
         <nav className="flex gap-4">
-          <NavLink to="/characters" className={({isActive}) =>
-            `transition-colors hover:text-green-500 ${
-              isActive ? 'text-green-500' : ''
-            }`
-          }>Characters</NavLink>
-          <NavLink to="/episodes" className={({isActive}) =>
-            `transition-colors hover:text-green-500 ${
-              isActive ? 'text-green-500' : ''
-            }`
-          }>Episodes</NavLink>
-          <NavLink to="/locations"
-                   className={({isActive}) =>
-                     `transition-colors hover:text-green-500 ${
-                       isActive ? 'text-green-500' : ''
-                     }`
-                   }>Locations</NavLink>
+          <NavLink to="/characters" className={navLinkClass}>Characters</NavLink>
+          <NavLink to="/episodes" className={navLinkClass}>Episodes</NavLink>
+          <NavLink to="/locations" className={navLinkClass}>Locations</NavLink>
         </nav>
-
       </div>
 
       <div className="relative max-w-md">
